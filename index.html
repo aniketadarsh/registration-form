@@ -4,8 +4,6 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Registration Form</title>
-  <script src="index.js"></script>
-  
 </head>
 <body>
 
@@ -39,10 +37,51 @@
     </tr>
   </thead>
   <tbody>
-    
+
   </tbody>
 </table>
 
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+
+    document.getElementById('registrationForm').addEventListener('submit', function (event) {
+
+      event.preventDefault();
+
+
+      var dobInput = document.getElementById('dob').value;
+      var dobDate = new Date(dobInput);
+      var today = new Date();
+      var minDate = new Date(today.getFullYear() - 55, today.getMonth(), today.getDate());
+      var maxDate = new Date(today.getFullYear() - 18, today.getMonth(), today.getDate());
+
+
+      if (dobDate >= minDate && dobDate <= maxDate) {
+
+        var table = document.getElementById('dataTable');
+        var newRow = table.insertRow(-1);
+
+
+        var nameCell = newRow.insertCell(0);
+        var emailCell = newRow.insertCell(1);
+        var passwordCell = newRow.insertCell(2);
+        var dobCell = newRow.insertCell(3);
+        var acceptedTermsCell = newRow.insertCell(4);
+
+        nameCell.innerHTML = document.getElementById('name').value;
+        emailCell.innerHTML = document.getElementById('email').value;
+        passwordCell.innerHTML = document.getElementById('password').value;
+        dobCell.innerHTML = dobInput;
+        acceptedTermsCell.innerHTML = document.getElementById('acceptedTerms').checked ? 'Yes' : 'No';
+
+        document.getElementById('registrationForm').reset();
+      } else {
+  
+        alert('Invalid date of birth. Please enter a date between 18 and 55 years ago.');
+      }
+    });
+  });
+</script>
 
 </body>
 </html>
